@@ -15,12 +15,12 @@ node{
     sh "${mavenCMD} clean package"
     }
     stage("Build Docker Image"){
-    sh "docker build -t ravi/spring-boot-mongo ."    
+    sh "docker build -t develop/spring-boot-mongo ."    
     }
     stage("Docker Push"){
         withCredentials([string(credentialsId: 'DOCKER_HUB_CREDENTIALS', variable: 'DOCKER_HUB_CREDENTIALS')]) {
-        sh "docker login -u ravi -p ${DOCKER_HUB_CREDENTIALS}"
-        sh "docker push ravi/spring-boot-mongo "
+        sh "docker login -u develop -p ${DOCKER_HUB_CREDENTIALS}"
+        sh "docker push develop/spring-boot-mongo "
     }
     stage("Deploy Application in k82 Cluster"){
         kubernetesDeploy(
